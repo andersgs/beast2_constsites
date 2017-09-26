@@ -1,0 +1,6 @@
+##fileformat=VCFv4.1
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##INFO=<ID=TYPE,Number=A,Type=String,Description="The type of allele.">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Reference
+test	2	.	C	T	9999.00	.	TYPE=snp	GT	0
+test	6	.	C	T	9999.00	.	TYPE=snp	GT	0

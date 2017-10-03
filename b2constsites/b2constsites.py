@@ -27,9 +27,28 @@ class B2ConstSites:
         fh.close()
         pass
 
+    def _parse_pos(self, rec):
+        '''
+        Find which positions to mask
+        '''
+        ACCEPTABLE_VAR_TYPES = {'snp', 'mnp'}
+        try:
+            if rec.INFO['TYPE'][0] in ACCEPTABLE_VAR_TYPES:
+                start_pos = rec.POS
+                if rec.INFO['TYPE'][0] == 'mnp':
+                    end_pos = start_pos + len(rec.ALT[0])
+                else:
+                    end_pos = start_pos + 1
+        except KeyError:
+            logging.critical("Something is not right with your vcf file")
+            raise
+        return list(range(start_pos, end_pos))
+
     def load_vcf(self):
         fh = open(self.vcf, 'rt')
-        self.var_pos = {rec.POS for rec in vcf.Reader(fh)}
+        self.var_pos = set()
+        for rec in vcf.Reader(fh):
+            self.var_pos.update(self._parse_pos(rec))
         fh.close()
         logging.info(f'Loaded {len(self.var_pos)} SNPs from vcf.')
         pass
@@ -58,6 +77,8 @@ class B2ConstSites:
             else:
                 tally[b] += 1
         self.tally = tally
+        for b in self.tally:
+            logging.info(f"Found {self.tally[b]} occurrences of {b}!")
         pass
 
     def __str__(self):

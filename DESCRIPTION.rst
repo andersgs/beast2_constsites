@@ -1,6 +1,8 @@
 beast2\_constsites: Create a line for BEAST2 XML with constant sites
 ====================================================================
 
+|Build Status|
+
 Introduction
 ------------
 
@@ -85,3 +87,6 @@ Issues or Questions
 -------------------
 
 `GitHub Issues <https://github.com/andersgs/beast2_constsites/issues>`__
+
+.. |Build Status| image:: https://travis-ci.org/andersgs/beast2_constsites.svg?branch=master
+   :target: https://travis-ci.org/andersgs/beast2_constsites

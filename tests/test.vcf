@@ -4,3 +4,4 @@
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Reference
 test	2	.	C	T	9999.00	.	TYPE=snp	GT	0
 test	6	.	C	T	9999.00	.	TYPE=snp	GT	0
+test	10	.	CC	TT	9999.00	.	TYPE=mnp	GT	0

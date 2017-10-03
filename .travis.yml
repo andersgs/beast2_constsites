@@ -1,5 +1,7 @@
   language: python
   python:
     - 3.6
+  install:
+    - pip install pyvcf biopython
   script:
     - python3 -m pytest tests

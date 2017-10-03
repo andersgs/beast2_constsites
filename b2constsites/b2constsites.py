@@ -26,7 +26,7 @@ class B2ConstSites:
         fh = open(self.seq, 'rt')
         self.seqrec = SeqIO.read(fh, format=self.seq_format)
         logging.info(f'Imported sequence {self.seqrec.id}.')
-        logging.info(f'it has length {len(self.seqrec)}')
+        logging.info(f'Sequence has length {len(self.seqrec)}')
         fh.close()
         pass
 
@@ -34,13 +34,13 @@ class B2ConstSites:
         self.xml_tree = ET.parse(self.xml)
         root = self.xml_tree.getroot()
         self.xml_root = root
-        for i, child in root:
+        for i, child in enumerate(root):
             if child.tag == 'data':
                 self.data_index = (i + 1)
                 break
 
     def rename_original_data_tag(self):
-        data_el = self.xml_data.findall('data')[0]
+        data_el = self.xml_root.findall('data')[0]
         self.data_el_id = data_el.attrib['id']
         self.new_data_id = self.data_el_id + "Original"
         data_el.attrib['id'] = self.new_data_id
@@ -105,8 +105,9 @@ class B2ConstSites:
                f' constantSiteWeights="{self.tally["A"]} {self.tally["C"]}'\
                f' {self.tally["G"]} {self.tally["T"]}"/>'
 
-    def create_new_data_tag(self):
-        outfile = self.xml.strip('\.xml') + '_plus_const.xml'
+    def create_new_xml(self):
+        fn, ext = os.path.splitext(self.xml)
+        self.new_xml = fn + '_plus_const' + ext
         const_sites = f'{self.tally["A"]} {self.tally["C"]} '\
                       f'{self.tally["G"]} {self.tally["T"]}'
         new_data = ET.Element('data')
@@ -115,5 +116,6 @@ class B2ConstSites:
         new_data.set("filter", "-")
         new_data.set("data", "@"+self.new_data_id)
         new_data.set("constantSiteWeights", const_sites)
+        new_data.tail = '\n\n    '
         self.xml_root.insert(self.data_index, new_data)
-        self.xml_tree.write(outfile)
+        self.xml_tree.write(self.new_xml)

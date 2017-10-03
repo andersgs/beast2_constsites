@@ -1,5 +1,5 @@
-beast2\_constsites: Create a line for BEAST2 XML with constant sites
-====================================================================
+beast2\_constsites: Update BEAST2 XML to account for constant sites
+===================================================================
 
 |Build Status|
 

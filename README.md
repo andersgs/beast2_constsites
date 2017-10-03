@@ -1,4 +1,4 @@
-# beast2_constsites: Create a line for BEAST2 XML with constant sites
+# beast2_constsites: Update BEAST2 XML to account for constant sites
 
 [![Build Status](https://travis-ci.org/andersgs/beast2_constsites.svg?branch=master)](https://travis-ci.org/andersgs/beast2_constsites)
 

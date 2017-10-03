@@ -10,7 +10,7 @@ Based on this
 `suggestion <https://groups.google.com/forum/#!topic/beast-users/QfBHMOqImFE>`__
 by Remco, we can correctly account for constant sites in a BEAST2
 analysis by adding the following ``data`` tag below your current
-``data`` tag::
+``data`` tag:
 
 ::
 

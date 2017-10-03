@@ -6,7 +6,7 @@
 
 Based on this [suggestion](https://groups.google.com/forum/#!topic/beast-users/QfBHMOqImFE) by Remco,
 we can correctly account for constant sites in a BEAST2 analysis by adding the
-following ``data`` tag below your current ``data`` tag::
+following ``data`` tag below your current ``data`` tag:
 
     <data id='xyz' spec='FilteredAlignment' filter='-' data='@xyzOriginal' constantSiteWeights='100 200 300 400'/>
 

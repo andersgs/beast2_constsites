@@ -1,5 +1,5 @@
 import click
-from b2constsites import B2ConstSites
+from .b2constsites import B2ConstSites
 
 
 @click.command()
@@ -7,8 +7,8 @@ from b2constsites import B2ConstSites
 @click.argument('vcf')
 @click.option('-m', '--maskbed', default=None,
               help='A BED file with positions to mask')
-@click.option('-f', '--format', default='fasta',
-              help='seq sequence format', show_defaults=True)
+@click.option('-f', '--fmt', default='fasta',
+              help='seq sequence format', show_default=True)
 def run_b2constsites(seq, vcf, maskbed, fmt):
     b2cs = B2ConstSites(seq=seq,
                         vcf=vcf,

@@ -68,10 +68,10 @@ def test_const_sites_G_with_bed():
 def test_output_with_bed(capfd):
     print(b2cs_bed)
     out, err = capfd.readouterr()
-    assert out == "<data id='xyz' spec='FilteredAlignment' filter='-'"\
-                  " data='@xyzOriginal'"\
-                  " constantSiteWeights='2 2"\
-                  " 4 2'/>\n"
+    assert out == '<data id="xyz" spec="FilteredAlignment" filter="-"'\
+                  ' data="@xyzOriginal"'\
+                  ' constantSiteWeights="2 2'\
+                  ' 4 2"/>\n'
 
 
 def test_load_seq_without_bed():
@@ -112,10 +112,10 @@ def test_const_sites_G_without_bed():
 def test_output_with_nobed(capfd):
     print(b2cs_nobed)
     out, err = capfd.readouterr()
-    assert out == "<data id='xyz' spec='FilteredAlignment' filter='-'"\
-                  " data='@xyzOriginal'"\
-                  " constantSiteWeights='3 2"\
-                  " 4 3'/>\n"
+    assert out == '<data id="xyz" spec="FilteredAlignment" filter="-"'\
+                  ' data="@xyzOriginal"'\
+                  ' constantSiteWeights="3 2'\
+                  ' 4 3"/>\n'
 
 
 def test_class_seq_withN(capfd):
@@ -125,10 +125,10 @@ def test_class_seq_withN(capfd):
     b2cs_withN.const_sites()
     print(b2cs_withN)
     out, err = capfd.readouterr()
-    assert out == "<data id='xyz' spec='FilteredAlignment' filter='-'"\
-                  " data='@xyzOriginal'"\
-                  " constantSiteWeights='3 1"\
-                  " 4 3'/>\n"
+    assert out == '<data id="xyz" spec="FilteredAlignment" filter="-"'\
+                  ' data="@xyzOriginal"'\
+                  ' constantSiteWeights="3 1'\
+                  ' 4 3"/>\n'
 
 
 def test_class_seq_withDash(capfd):
@@ -138,7 +138,7 @@ def test_class_seq_withDash(capfd):
     b2cs_withDash.const_sites()
     print(b2cs_withDash)
     out, err = capfd.readouterr()
-    assert out == "<data id='xyz' spec='FilteredAlignment' filter='-'"\
-                  " data='@xyzOriginal'"\
-                  " constantSiteWeights='3 2"\
-                  " 4 3'/>\n"
+    assert out == '<data id="xyz" spec="FilteredAlignment" filter="-"'\
+                  ' data="@xyzOriginal"'\
+                  ' constantSiteWeights="3 2'\
+                  ' 4 3"/>\n'

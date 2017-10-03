@@ -82,7 +82,7 @@ class B2ConstSites:
         pass
 
     def __str__(self):
-        return f"<data id='xyz' spec='FilteredAlignment' filter='-'"\
-               f" data='@xyzOriginal'"\
-               f" constantSiteWeights='{self.tally['A']} {self.tally['C']}"\
-               f" {self.tally['G']} {self.tally['T']}'/>"
+        return f'<data id="xyz" spec="FilteredAlignment" filter="-"'\
+               f' data="@xyzOriginal"'\
+               f' constantSiteWeights="{self.tally["A"]} {self.tally["C"]}'\
+               f' {self.tally["G"]} {self.tally["T"]}"/>'

@@ -5,13 +5,15 @@ from .b2constsites import B2ConstSites
 @click.command()
 @click.argument('seq')
 @click.argument('vcf')
+@click.argument('xml')
 @click.option('-m', '--maskbed', default=None,
               help='A BED file with positions to mask')
 @click.option('-f', '--fmt', default='fasta',
               help='seq sequence format', show_default=True)
-def run_b2constsites(seq, vcf, maskbed, fmt):
+def run_b2constsites(seq, vcf, xml, maskbed, fmt):
     b2cs = B2ConstSites(seq=seq,
                         vcf=vcf,
+                        xml=xml,
                         maskbed=maskbed,
                         fmt=fmt)
     b2cs.load_seq()

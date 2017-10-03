@@ -3,17 +3,20 @@ from Bio import SeqIO
 import os
 import logging
 import collections
+import xml.etree.ElementTree as ET
 
 
 class B2ConstSites:
     def __init__(self,
                  seq,
                  vcf,
+                 xml,
                  maskbed=None,
                  fmt='fasta'):
         self.seq = os.path.realpath(seq)
         self.seq_format = fmt
         self.vcf = os.path.realpath(vcf)
+        self.xml = os.path.realpath(xml)
         if maskbed is not None:
             self.mask = os.path.realpath(maskbed)
         else:
@@ -26,6 +29,21 @@ class B2ConstSites:
         logging.info(f'it has length {len(self.seqrec)}')
         fh.close()
         pass
+
+    def load_xml(self):
+        self.xml_tree = ET.parse(self.xml)
+        root = self.xml_tree.getroot()
+        self.xml_root = root
+        for i, child in root:
+            if child.tag == 'data':
+                self.data_index = (i + 1)
+                break
+
+    def rename_original_data_tag(self):
+        data_el = self.xml_data.findall('data')[0]
+        self.data_el_id = data_el.attrib['id']
+        self.new_data_id = self.data_el_id + "Original"
+        data_el.attrib['id'] = self.new_data_id
 
     def _parse_pos(self, rec):
         '''
@@ -86,3 +104,16 @@ class B2ConstSites:
                f' data="@xyzOriginal"'\
                f' constantSiteWeights="{self.tally["A"]} {self.tally["C"]}'\
                f' {self.tally["G"]} {self.tally["T"]}"/>'
+
+    def create_new_data_tag(self):
+        outfile = self.xml.strip('\.xml') + '_plus_const.xml'
+        const_sites = f'{self.tally["A"]} {self.tally["C"]} '\
+                      f'{self.tally["G"]} {self.tally["T"]}'
+        new_data = ET.Element('data')
+        new_data.set("id", self.data_el_id)
+        new_data.set("spec", "FilteredAlignment")
+        new_data.set("filter", "-")
+        new_data.set("data", "@"+self.new_data_id)
+        new_data.set("constantSiteWeights", const_sites)
+        self.xml_root.insert(self.data_index, new_data)
+        self.xml_tree.write(outfile)

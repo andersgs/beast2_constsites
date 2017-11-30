@@ -19,6 +19,7 @@ class ConstSites:
     def load_seq(self):
         fh = open(self.seq, 'rt')
         self.seqrec = SeqIO.read(fh, format=self.seq_format)
+        self.seqrec = self.seqrec.upper()
         logging.info(f'Imported sequence {self.seqrec.id}.')
         logging.info(f'Sequence has length {len(self.seqrec)}')
         fh.close()

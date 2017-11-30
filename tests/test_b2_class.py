@@ -1,6 +1,6 @@
 import pytest
 import os
-from b2constsites.b2constsites import B2ConstSites
+from b2constsites.b2constsites import B2
 
 
 test_folder = os.path.dirname(os.path.realpath(__file__))
@@ -12,26 +12,26 @@ test_xml = os.path.join(test_folder, 'test.xml')
 test_seq_withN = os.path.join(test_folder, 'test_withN.fa')
 test_seq_withDash = os.path.join(test_folder, 'test_withdash.fa')
 
-b2cs_bed = B2ConstSites(seq=test_seq,
-                        vcf=test_vcf,
-                        maskbed=test_bed,
-                        xml=test_xml,
-                        fmt='fasta')
+b2cs_bed = B2(seq=test_seq,
+              vcf=test_vcf,
+              maskbed=test_bed,
+              xml=test_xml,
+              fmt='fasta')
 
-b2cs_nobed = B2ConstSites(seq=test_seq,
-                          vcf=test_vcf,
-                          xml=test_xml,
-                          fmt='fasta')
+b2cs_nobed = B2(seq=test_seq,
+                vcf=test_vcf,
+                xml=test_xml,
+                fmt='fasta')
 
-b2cs_withN = B2ConstSites(seq=test_seq_withN,
-                          vcf=test_vcf,
-                          xml=test_xml,
-                          fmt='fasta')
+b2cs_withN = B2(seq=test_seq_withN,
+                vcf=test_vcf,
+                xml=test_xml,
+                fmt='fasta')
 
-b2cs_withDash = B2ConstSites(seq=test_seq_withDash,
-                             vcf=test_vcf,
-                             xml=test_xml,
-                             fmt='fasta')
+b2cs_withDash = B2(seq=test_seq_withDash,
+                   vcf=test_vcf,
+                   xml=test_xml,
+                   fmt='fasta')
 
 
 def test_load_seq_with_bed():

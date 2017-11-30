@@ -1,4 +1,4 @@
 .cache
 __pycache__
 dist
-make_rst.sh
+md2rst.sh

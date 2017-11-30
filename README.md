@@ -19,7 +19,17 @@ removed from the alignment, with:
 *  300 Gs
 *  400 Ts
 
+Other phylogenetic software allow you to also account for constant sites if
+you are only supplying an alignment with variable sites. As of version `0.3.0`,
+`beast2_constsites` also supports [IQTree](http://www.iqtree.org/) as well as
+`BEAST2`.
+
+If you would like support for other tools, please file a GitHub issue, and
+specify how the tool would require the information.
+
 ## What does this do?
+
+### BEAST2
 
 This script will take a FASTA file with a single DNA sequence (e.g., a
 bacterial chromosome), a VCF file containing the position of
@@ -32,6 +42,13 @@ need to do but run BEAST2.
 It will optionally also take a BED file with positions to mask (e.g., positions
 of phage).
 
+### IQTree
+
+`beast2_constsites` will take the same FASTA, VCF, and optionally the BED file,
+as described above, and will print out the `iqtree` command's `-fconst` option
+with the appropriate numbers and format. You can then copy paste the relevant
+portion to form the complete `iqtree` command.
+
 ## How to install?
 
     pip3 install b2constsites
@@ -43,16 +60,26 @@ your path:
 
     run_b2cs --help
 
+### BEAST2
+
 At a minimum, you need to supply a sequence file with your reference (assuming
 it has a single chromosome entry --- this was designed for bacterial genomics,
 but may work with viral too), a VCF file with variants, and the XML output
 from BEAUTi.
 
-    run_b2cs myref.fasta myvar.vcf myxml.xml
+    run_b2cs -x myxml.xml beast2 myref.fasta myvar.vcf
 
 
 A new file called `myxml_plus_const.xml` will be created in the same folder as
 `myxml.xml`.
+
+### IQTREE
+
+At a minimum, you need to supply a sequence file with your reference (assuming
+it has a single chromosome entry --- this was designed for bacterial genomics,
+but may work with viral too), and a VCF file with variants.
+
+    run_b2cs iqtree myref.fasta myvar.vcf
 
 ## ASSUMPTIONS and CAVEATS
 
@@ -63,11 +90,12 @@ Other variant types will be ignored.
 *   Will only take into consideration A, C, G, and T bases in your reference
 sequence. All other characters will be ignored.
 *   Has not been tested with BEAST1.8, and as far as I know it will **not** work
-with that version of BEAST. This was designed for use with BEAST2.
+with that version of BEAST.
 
 The output will be, therefore, an approximation. However, it should be a close
-enough approximation that it will provide a better inference from BEAST2 than
-if one uses only variable sites, and then corrects in some *post hoc* manner.
+enough approximation that it will provide a better inference
+from BEAST2 and IQTree than if one uses only variable sites, and then corrects
+in some *post hoc* manner.
 
 
 ## Authors

@@ -6,17 +6,11 @@ import collections
 import xml.etree.ElementTree as ET
 
 
-class B2ConstSites:
-    def __init__(self,
-                 seq,
-                 vcf,
-                 xml,
-                 maskbed=None,
-                 fmt='fasta'):
+class ConstSites:
+    def __init__(self, seq, vcf, fmt, maskbed=None):
         self.seq = os.path.realpath(seq)
         self.seq_format = fmt
         self.vcf = os.path.realpath(vcf)
-        self.xml = os.path.realpath(xml)
         if maskbed is not None:
             self.mask = os.path.realpath(maskbed)
         else:
@@ -29,21 +23,6 @@ class B2ConstSites:
         logging.info(f'Sequence has length {len(self.seqrec)}')
         fh.close()
         pass
-
-    def load_xml(self):
-        self.xml_tree = ET.parse(self.xml)
-        root = self.xml_tree.getroot()
-        self.xml_root = root
-        for i, child in enumerate(root):
-            if child.tag == 'data':
-                self.data_index = (i + 1)
-                break
-
-    def rename_original_data_tag(self):
-        data_el = self.xml_root.findall('data')[0]
-        self.data_el_id = data_el.attrib['id']
-        self.new_data_id = self.data_el_id + "Original"
-        data_el.attrib['id'] = self.new_data_id
 
     def _parse_pos(self, rec):
         '''
@@ -98,6 +77,41 @@ class B2ConstSites:
         for b in self.tally:
             logging.info(f"Found {self.tally[b]} occurrences of {b}!")
         pass
+
+
+class IQtree(ConstSites):
+    def __init__(self, seq, vcf, fmt='fasta', maskbed=None):
+        super().__init__(seq=seq, fmt=fmt, vcf=vcf, maskbed=maskbed)
+
+    def __str__(self):
+        return f'iqtree <options> -fconst {self.tally["A"]},'\
+               f'{self.tally["C"]},{self.tally["G"]},{self.tally["T"]}'
+
+
+class B2(ConstSites):
+    def __init__(self,
+                 seq,
+                 vcf,
+                 xml,
+                 maskbed=None,
+                 fmt='fasta'):
+        self.xml = os.path.realpath(xml)
+        super().__init__(seq=seq, vcf=vcf, fmt=fmt, maskbed=maskbed)
+
+    def load_xml(self):
+        self.xml_tree = ET.parse(self.xml)
+        root = self.xml_tree.getroot()
+        self.xml_root = root
+        for i, child in enumerate(root):
+            if child.tag == 'data':
+                self.data_index = (i + 1)
+                break
+
+    def rename_original_data_tag(self):
+        data_el = self.xml_root.findall('data')[0]
+        self.data_el_id = data_el.attrib['id']
+        self.new_data_id = self.data_el_id + "Original"
+        data_el.attrib['id'] = self.new_data_id
 
     def __str__(self):
         return f'<data id="xyz" spec="FilteredAlignment" filter="-"'\

@@ -1,7 +1,7 @@
 import click
 import logging
-from b2constsites import B2
-from b2constsites import IQtree
+from b2constsites.b2constsites import B2
+from b2constsites.b2constsites import IQtree
 
 
 @click.command()
@@ -72,7 +72,6 @@ def run_b2constsites(tool, seq, vcf, xml, maskbed, fmt):
         logging.warning('Please file an issue on '
                         'https://github.com/andergs/beast2_constsites/issues')
         logging.warning('Exiting without doing anything!')
-
 
 
 if __name__ == '__main__':

@@ -1,7 +1,6 @@
 import click
 import logging
 from b2constsites.b2constsites import B2
-from b2constsites.b2constsites import IQtree
 
 
 @click.command()
@@ -81,4 +80,4 @@ def b2c_iqtree():
 
 
 if __name__ == '__main__':
-    run_b2constsites()
+    b2c_beast()

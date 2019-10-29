@@ -54,8 +54,8 @@ def run_b2constsites(tool, seq, vcf, xml, maskbed, fmt):
         cs.load_mask()
         cs.const_sites()
         cs.create_new_xml()
-        logging.info(f'Created {b2cs.new_xml}.')
-        logging.info(f'Use: beast <options> {b2cs.new_xml}')
+        logging.info(f'Created {cs.new_xml}.')
+        logging.info(f'Use: beast <options> {cs.new_xml}')
         logging.info('DONE!')
     elif tool == 'iqtree':
         cs = IQtree(seq=seq,
